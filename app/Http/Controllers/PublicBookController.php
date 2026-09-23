@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class PublicBookController extends Controller
@@ -11,7 +12,11 @@ class PublicBookController extends Controller
      */
     public function index()
     {
-        //
+        $books = Book::where('published', true)
+            ->whereNull('deleted_at')
+            ->get();
+
+        return response()->json($books);
     }
 
     /**
